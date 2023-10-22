@@ -3,26 +3,37 @@ package Model.dataRepository;
 import Model.conf.DatabaseManager;
 import Model.dataObjects.*;
 
+import java.lang.reflect.Field;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 abstract public class AbstractRepository {
-    protected List<String> columns;
-    protected abstract String getPrimayKeyColumn();
-    protected abstract List<String> getColumns();
+    protected String column1;
 
-//    protected List<String> getColumns() {
-//        List<String> columnsArray = new ArrayList<>();
-//        columnsArray.add(getPrimayKeyColumn());
-//        columnsArray.add("Nom");
-//        columnsArray.add("Prénom");
-//        columnsArray.add("Adresse");
-//        columnsArray.add("Numéro_Téléphone");
-//        return columnsArray;
-//    }
     protected abstract String getNomTable();
+
     protected abstract AbstractObject Construire(ArrayList<Object> list);
+
+    protected String getPrimayKeyColumn() {
+        return this.column1;
+    }
+
+    protected List<String> getColumns() {
+        List<String> columnsArray = new ArrayList<>();
+        Field[] attributs = this.getClass().getDeclaredFields();
+        try {
+            for (Field attribut : attributs) {
+                attribut.setAccessible(true);
+                Object valeur = attribut.get(this);
+                columnsArray.add((String) valeur);
+            }
+        } catch (IllegalAccessException e){
+            System.out.println(e.getMessage());
+        }
+        return columnsArray;
+    }
+
     private static List<ArrayList<Object>> getObjectsFromResultSet(ResultSet resultSet) throws SQLException {
         List<ArrayList<Object>> resultArray = new ArrayList<>();
         ResultSetMetaData metaData = resultSet.getMetaData();

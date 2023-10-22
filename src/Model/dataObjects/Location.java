@@ -59,7 +59,7 @@ public class Location extends AbstractObject {
     }
 
     public void setDateDebut(String dateDebut) {
-        this.dateDebut = LocalDate.parse(dateDebut, formatter);
+        this.dateDebut = LocalDate.parse(dateDebut, getFormatter());
     }
 
     public LocalDate getDateFin() {
@@ -67,7 +67,7 @@ public class Location extends AbstractObject {
     }
 
     public void setDateFin(String dateFin) {
-        this.dateFin = LocalDate.parse(dateFin, formatter);
+        this.dateFin = LocalDate.parse(dateFin, getFormatter());
     }
 
     public float getCoutTotal() {

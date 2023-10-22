@@ -5,7 +5,6 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public abstract class AbstractObject {
     public int getPrimaryKey() {
         Field[] attributs = this.getClass().getDeclaredFields();

@@ -20,7 +20,7 @@ public class Transaction extends AbstractObject {
         this.numCompteSource = numCompteSource;
         this.numCompteCible = numCompteCible;
         this.montant = montant;
-        this.dateTransaction = LocalDate.parse(dateTransaction, formatter);
+        this.dateTransaction = LocalDate.parse(dateTransaction, getFormatter());
     }
 
     public void setId(int id) {
@@ -56,6 +56,6 @@ public class Transaction extends AbstractObject {
     }
 
     public void setDateTransaction(String dateTransaction) {
-        this.dateTransaction = LocalDate.parse(dateTransaction, formatter);
+        this.dateTransaction = LocalDate.parse(dateTransaction, getFormatter());
     }
 }

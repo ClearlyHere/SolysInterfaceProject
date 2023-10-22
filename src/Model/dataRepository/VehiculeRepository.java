@@ -1,14 +1,19 @@
 package Model.dataRepository;
+
 import Model.dataObjects.Client;
 
 import java.util.ArrayList;
 
-public class ClientRepository extends AbstractRepository {
+public class VehiculeRepository extends AbstractRepository {
     private final String column1 = "ID_Client";
     private final String column2 = "Nom";
     private final String column3 = "Prénom";
     private final String column4 = "Adresse";
     private final String column5 = "Numéro_Téléphone";
+    @Override
+    protected String getPrimayKeyColumn() {
+        return "ID_Client";
+    }
 
     @Override
     protected String getNomTable() {
