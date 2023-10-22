@@ -11,6 +11,10 @@ public class Transaction extends AbstractObject {
     private LocalDate dateTransaction;
     private static final  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+    static DateTimeFormatter getFormatter(){
+        return formatter;
+    }
+
     public Transaction(int id, int numCompteSource, int numCompteCible, float montant, String dateTransaction) {
         this.id = id;
         this.numCompteSource = numCompteSource;

@@ -24,7 +24,6 @@ public abstract class AbstractObject {
             for (Field attribut : attributs) {
                 // If field is static, skip it
                 if (Modifier.isStatic(attribut.getModifiers())){
-                    System.out.println("test");
                     continue;
                 }
                 attribut.setAccessible(true);
@@ -44,7 +43,6 @@ public abstract class AbstractObject {
             for (Field attribut : attributs) {
                 // If field is static, skip it
                 if (Modifier.isStatic(attribut.getModifiers())){
-                    System.out.println("test");
                     continue;
                 }
                 attribut.setAccessible(true);

@@ -12,6 +12,9 @@ public class Location extends AbstractObject {
     private LocalDate dateFin;
     private float coutTotal;
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    static DateTimeFormatter getFormatter(){
+        return formatter;
+    }
 
     public Location(int id, int id_client, int id_vehicule, int id_employe, String dateDebut, String dateFin, float coutTotal) {
         this.id = id;
@@ -74,4 +77,5 @@ public class Location extends AbstractObject {
     public void setCoutTotal(float coutTotal) {
         this.coutTotal = coutTotal;
     }
+
 }
