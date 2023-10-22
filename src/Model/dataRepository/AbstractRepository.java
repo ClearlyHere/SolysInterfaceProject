@@ -13,7 +13,7 @@ abstract public class AbstractRepository {
 
     protected abstract String getNomTable();
 
-    protected abstract AbstractObject Construire(ArrayList<Object> list);
+    protected abstract AbstractObject construire(ArrayList<Object> list);
 
     protected String getPrimayKeyColumn() {
         return this.column1;
@@ -74,7 +74,7 @@ abstract public class AbstractRepository {
             List<AbstractObject> objectList = new ArrayList<>();
 
             for (ArrayList<Object> objectArray : dataTable){
-                objectList.add(Construire(objectArray));
+                objectList.add(construire(objectArray));
             }
             connection.close();
             queryStatement.close();

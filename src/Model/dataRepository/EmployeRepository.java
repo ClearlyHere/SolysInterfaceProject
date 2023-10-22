@@ -18,7 +18,7 @@ public class EmployeRepository extends AbstractRepository {
     }
 
     @Override
-    protected Employe Construire(ArrayList<Object> list) {
+    protected Employe construire(ArrayList<Object> list) {
         BigDecimal decimal = (BigDecimal) list.get(4);
         float salaire = decimal.floatValue();
         return new Employe(

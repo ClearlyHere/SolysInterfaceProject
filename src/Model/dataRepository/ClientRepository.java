@@ -16,7 +16,7 @@ public class ClientRepository extends AbstractRepository {
     }
 
     @Override
-    protected Client Construire(ArrayList<Object> list) {
+    protected Client construire(ArrayList<Object> list) {
         return new Client(
                 (int) list.get(0),
                 (String) list.get(1),

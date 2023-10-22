@@ -3,6 +3,7 @@ package Model.dataRepository;
 import Model.dataObjects.Location;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.ArrayList;
 
 public class LocationRepository extends AbstractRepository {
@@ -20,7 +21,7 @@ public class LocationRepository extends AbstractRepository {
     }
 
     @Override
-    protected Location Construire(ArrayList<Object> list) {
+    protected Location construire(ArrayList<Object> list) {
         BigDecimal decimal = (BigDecimal) list.get(6);
         float coutTotal = decimal.floatValue();
 
@@ -29,8 +30,8 @@ public class LocationRepository extends AbstractRepository {
                 (int) list.get(1),
                 (int) list.get(2),
                 (int) list.get(3),
-                (String) list.get(4),
-                (String) list.get(5),
+                (Date) list.get(4),
+                (Date) list.get(5),
                 coutTotal
         );
     }

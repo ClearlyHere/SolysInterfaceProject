@@ -1,28 +1,23 @@
 package Model.dataObjects;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.sql.Date;
 
 public class Location extends AbstractObject {
     private int id;
     private int id_client;
     private int id_vehicule;
     private int id_employe;
-    private LocalDate dateDebut;
-    private LocalDate dateFin;
+    private Date dateDebut;
+    private Date dateFin;
     private float coutTotal;
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    static DateTimeFormatter getFormatter(){
-        return formatter;
-    }
 
-    public Location(int id, int id_client, int id_vehicule, int id_employe, String dateDebut, String dateFin, float coutTotal) {
+    public Location(int id, int id_client, int id_vehicule, int id_employe, Date dateDebut, Date dateFin, float coutTotal) {
         this.id = id;
         this.id_client = id_client;
         this.id_vehicule = id_vehicule;
         this.id_employe = id_employe;
-        this.dateDebut = LocalDate.parse(dateDebut, formatter);
-        this.dateFin = LocalDate.parse(dateFin, formatter);
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
         this.coutTotal = coutTotal;
     }
 
@@ -54,20 +49,20 @@ public class Location extends AbstractObject {
         this.id_employe = id_employe;
     }
 
-    public LocalDate getDateDebut() {
+    public Date getDateDebut() {
         return dateDebut;
     }
 
-    public void setDateDebut(String dateDebut) {
-        this.dateDebut = LocalDate.parse(dateDebut, getFormatter());
+    public void setDateDebut(Date dateDebut) {
+        this.dateDebut = dateDebut;
     }
 
-    public LocalDate getDateFin() {
+    public Date getDateFin() {
         return dateFin;
     }
 
-    public void setDateFin(String dateFin) {
-        this.dateFin = LocalDate.parse(dateFin, getFormatter());
+    public void setDateFin(Date dateFin) {
+        this.dateFin = dateFin;
     }
 
     public float getCoutTotal() {

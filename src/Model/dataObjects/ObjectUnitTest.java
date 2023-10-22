@@ -1,7 +1,7 @@
 package Model.dataObjects;
 import org.junit.jupiter.api.BeforeEach;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,16 +14,23 @@ class ObjectUnitTest extends AbstractObject {
     private Location location;
     private Transaction transaction;
     private Vehicule vehicule;
+    Date debLocDate;
+    Date finLocDate;
+    Date transDate;
 
     @BeforeEach
     void setUp() {
+        debLocDate = Date.valueOf("2023-10-21");
+        finLocDate = Date.valueOf("2023-11-25");
+        transDate = Date.valueOf("1989-02-13");
+
         client = new Client(15, "fName", "name", "address", "01-12-54-47-93");
         compte = new Compte(100001, "name", 5000.50F);
         employe = new Employe(10, "fName", "name", "post", 2500.50F);
         location = new Location(200, 10001, 123, 10004,
-                "2023-10-21", "2023-11-25", 50.50F);
+                debLocDate, finLocDate, 50.50F);
         transaction = new Transaction(50, 10001, 10004,
-                500.12F, "1989-02-13");
+                500.12F, transDate);
         vehicule = new Vehicule(123, "BMW", "ABX",
                 2004, "ABX-123", 100.50F);
     }
@@ -118,8 +125,8 @@ class ObjectUnitTest extends AbstractObject {
         expectedListArray.add(10001);
         expectedListArray.add(123);
         expectedListArray.add(10004);
-        expectedListArray.add(LocalDate.parse("2023-10-21", Location.getFormatter()));
-        expectedListArray.add(LocalDate.parse("2023-11-25", Location.getFormatter()));
+        expectedListArray.add(debLocDate);
+        expectedListArray.add(finLocDate);
         expectedListArray.add(50.50F);
         assertEquals(listArray, expectedListArray, "TableArray incorrect");
     }
@@ -147,7 +154,7 @@ class ObjectUnitTest extends AbstractObject {
         expectedListArray.add(10001);
         expectedListArray.add(10004);
         expectedListArray.add(500.12F);
-        expectedListArray.add(LocalDate.parse("1989-02-13", Transaction.getFormatter()));
+        expectedListArray.add(transDate);
         assertEquals(listArray, expectedListArray, "TableArray incorrect");
     }
 

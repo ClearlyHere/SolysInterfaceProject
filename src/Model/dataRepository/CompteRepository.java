@@ -16,7 +16,7 @@ public class CompteRepository extends AbstractRepository {
     }
 
     @Override
-    protected Compte Construire(ArrayList<Object> list) {
+    protected Compte construire(ArrayList<Object> list) {
         int key = Integer.parseInt((String) list.get(0));
         BigDecimal decimal = (BigDecimal) list.get(2);
         float solde = decimal.floatValue();

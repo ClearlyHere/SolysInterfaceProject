@@ -1,33 +1,35 @@
 package Model.dataRepository;
 
-import Model.dataObjects.Client;
+import Model.dataObjects.Transaction;
 
+import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.ArrayList;
 
 public class TransactionRepository extends AbstractRepository {
-    private final String column1 = "ID_Client";
-    private final String column2 = "Nom";
-    private final String column3 = "Prénom";
-    private final String column4 = "Adresse";
-    private final String column5 = "Numéro_Téléphone";
-    @Override
-    protected String getPrimayKeyColumn() {
-        return "ID_Client";
-    }
+    private final String column1 = "ID_Transaction";
+    private final String column2 = "Numéro_Compte_Source";
+    private final String column3 = "Numéro_Compte_Cible";
+    private final String column4 = "Montant";
+    private final String column5 = "Date_Transaction";
 
     @Override
     protected String getNomTable() {
-        return "Clients";
+        return "transactions";
     }
 
     @Override
-    protected Client Construire(ArrayList<Object> list) {
-        return new Client(
+    protected Transaction construire(ArrayList<Object> list) {
+        int compteSource = Integer.parseInt((String) list.get(1));
+        int compteCible = Integer.parseInt((String) list.get(2));
+        BigDecimal decimal = (BigDecimal) list.get(3);
+        float montant = decimal.floatValue();
+        return new Transaction(
                 (int) list.get(0),
-                (String) list.get(1),
-                (String) list.get(2),
-                (String) list.get(3),
-                (String) list.get(4)
+                compteSource,
+                compteCible,
+                montant,
+                (Date) list.get(4)
         );
     }
 }
