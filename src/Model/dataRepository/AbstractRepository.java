@@ -16,7 +16,7 @@ abstract public class AbstractRepository {
 
     abstract AbstractObject construire(ArrayList<Object> list);
 
-    private List<String> getColumns() {
+    List<String> getColumns() {
         List<String> columnsArray = new ArrayList<>();
         Field[] attributs = this.getClass().getDeclaredFields();
         try {
@@ -29,6 +29,49 @@ abstract public class AbstractRepository {
             System.out.println(e.getMessage());
         }
         return columnsArray;
+    }
+    /**Returns the column names of the corresponding Repository.
+     * columnsToString is meant to build SQL queries based
+     * on the table we're manipulating to create dynamic SQL
+     * queries on all tables. It ignores the Primary Key column
+     * which should be located at the first column.
+     * Return example : "(Nom, Prénom, Adresse, Numéro_Téléphone)"
+     * @return The names of table columns as a String
+     */
+    private String columsToString(){
+        StringBuilder columnsString = new StringBuilder(" (");
+        List<String> columnsArray = this.getColumns();
+        for (int i = 1; i < columnsArray.size(); i++){
+            String column = columnsArray.get(i);
+            columnsString.append(column);
+            if (i < columnsArray.size() - 1) {
+                columnsString.append(", ");
+            }
+        }
+        columnsString.append(") ");
+        return columnsString.toString();
+    }
+
+    /**Returns parameterized SQL indexes "?" based on the abstract
+     * object passed as a parameter. It's intended to build dynamic
+     * SQL queries to manipulate most tables in the database. Ignores
+     * the first attribute as we don't modify the first column
+     * which should be the primary key column. Return example :
+     * "(?, ?, ?, ?)"
+     * @param object The AbstractObject associated with the SQL query
+     * @return Parameterized "?" indexes as a String
+     */
+    private String objectIndexToString(AbstractObject object){
+        StringBuilder valuesIndex = new StringBuilder("(");
+        Field[] attributs = object.getClass().getDeclaredFields();
+        for (int i = 1; i < attributs.length; i++){
+            valuesIndex.append("?");
+            if (i < attributs.length - 1){
+                valuesIndex.append(", ");
+            }
+        }
+        valuesIndex.append(")");
+        return valuesIndex.toString();
     }
 
     private static List<ArrayList<Object>> getObjectsFromResultSet(ResultSet resultSet) throws SQLException {
@@ -47,18 +90,6 @@ abstract public class AbstractRepository {
         return resultArray;
     }
 
-    private String columsToString(){
-        StringBuilder columnsString = new StringBuilder();
-        List<String> columnsArray = this.getColumns();
-        for (int i = 0; i < columnsArray.size(); i++){
-            String column = columnsArray.get(i);
-            columnsString.append(column);
-            if (i < columnsArray.size() - 1) {
-                columnsString.append(", ");
-            }
-        }
-        return columnsString.toString();
-    }
     public List<AbstractObject> selectAll()
     {
         try {
@@ -119,6 +150,31 @@ abstract public class AbstractRepository {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+        return true;
+    }
+
+    public boolean sauvegarder(AbstractObject object) {
+        String sqlQuery = "INSERT INTO " + this.getNomTable() + this.columsToString() +
+                " VALUES " + this.objectIndexToString(object) + ";";
+
+        try (Connection connection = DatabaseManager.getConnection()){
+            //noinspection SqlSourceToSinkFlow
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+            List<Object> objectTableArray = object.getTableArray();
+            for (int i = 1; i <= objectTableArray.size() - 1; i++){
+                preparedStatement.setObject(i, objectTableArray.get(i));
+            }
+            System.out.println(preparedStatement);
+            int rowCount = preparedStatement.executeUpdate();
+            if (rowCount < 1){
+                throw new Exception("Data not found in " + this.getNomTable());
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         } catch (Exception e){
             System.out.println(e.getMessage());
             return false;
