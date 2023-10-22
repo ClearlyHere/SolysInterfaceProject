@@ -1,4 +1,4 @@
-package dataObjects;
+package Model.dataObjects;
 
 public class Compte extends AbstractObject {
     private int numCompte;

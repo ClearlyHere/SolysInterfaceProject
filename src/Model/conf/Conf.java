@@ -1,4 +1,4 @@
-package classes;
+package Model.conf;
 
 public class Conf {
     private static final String url = "jdbc:mysql://localhost:3306/tp2_jdbc";

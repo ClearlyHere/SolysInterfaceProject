@@ -1,4 +1,4 @@
-package dataObjects;
+package Model.dataObjects;
 
 public class testObject {
     public static void main(String[] args) {

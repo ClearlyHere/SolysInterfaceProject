@@ -1,4 +1,4 @@
-package dataObjects;
+package Model.dataObjects;
 
 public class Vehicule extends AbstractObject {
     private int id;

@@ -1,4 +1,4 @@
-package dataRepository;
+package Model.dataRepository;
 
 public class testRepository {
     public static void main(String[] args) {

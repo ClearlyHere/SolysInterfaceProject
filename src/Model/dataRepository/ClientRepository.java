@@ -1,5 +1,5 @@
-package dataRepository;
-import dataObjects.Client;
+package Model.dataRepository;
+import Model.dataObjects.Client;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +11,11 @@ public class ClientRepository extends AbstractRepository {
     }
 
     @Override
+    protected String getNomTable() {
+        return "Clients";
+    }
+
+    @Override
     protected List<String> getColumns() {
         List<String> columnsArray = new ArrayList<>();
         columnsArray.add(getPrimayKeyColumn());
@@ -19,11 +24,6 @@ public class ClientRepository extends AbstractRepository {
         columnsArray.add("Adresse");
         columnsArray.add("Numéro_Téléphone");
         return columnsArray;
-    }
-
-    @Override
-    protected String getNomTable() {
-        return "Clients";
     }
 
     @Override

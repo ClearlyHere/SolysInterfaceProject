@@ -1,7 +1,7 @@
-package dataRepository;
+package Model.dataRepository;
 
-import classes.DatabaseManager;
-import dataObjects.*;
+import Model.conf.DatabaseManager;
+import Model.dataObjects.*;
 
 import java.sql.*;
 import java.util.ArrayList;

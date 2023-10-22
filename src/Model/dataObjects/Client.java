@@ -1,4 +1,4 @@
-package dataObjects;
+package Model.dataObjects;
 
 public class Client extends AbstractObject {
     private int id;
