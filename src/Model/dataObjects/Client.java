@@ -14,45 +14,4 @@ public class Client extends AbstractObject {
         this.adresse = adresse;
         this.numTelephone = numTelephone;
     }
-
-    @Override
-    public int getPrimaryKey() {
-        return this.id;
-    }
-
-    public void setPrimaryKey(int id) {
-        this.id = id;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String Nom) {
-        this.nom = Nom;
-    }
-
-    public String getPrenom() {
-        return prenom;
-    }
-
-    public void setPrenom(String Prenom) {
-        this.prenom = Prenom;
-    }
-
-    public String getAdresse() {
-        return adresse;
-    }
-
-    public void setAdresse(String Adresse) {
-        this.adresse = Adresse;
-    }
-
-    public String getNumTelephone() {
-        return numTelephone;
-    }
-
-    public void setNumTelephone(String NumTelephone) {
-        this.numTelephone = NumTelephone;
-    }
 }

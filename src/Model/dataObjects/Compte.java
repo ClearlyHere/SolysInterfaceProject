@@ -10,24 +10,4 @@ public class Compte extends AbstractObject {
         this.titulaire = titulaire;
         this.solde = solde;
     }
-
-    public void setNumCompte(int numCompte) {
-        this.numCompte = numCompte;
-    }
-
-    public String getTitulaire() {
-        return titulaire;
-    }
-
-    public void setTitulaire(String titulaire) {
-        this.titulaire = titulaire;
-    }
-
-    public Float getSolde() {
-        return solde;
-    }
-
-    public void setSolde(Float solde) {
-        this.solde = solde;
-    }
 }

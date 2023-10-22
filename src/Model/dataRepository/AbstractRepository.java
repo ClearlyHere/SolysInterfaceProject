@@ -293,32 +293,6 @@ abstract public class AbstractRepository {
             System.out.println(e.getMessage());
         }
     }
-    public static void insertClient(String nom, String prenom, String adresse, String num_tel) {
-        try {
-            // Création d'une connexion
-            Connection connection = DatabaseManager.getConnection();
-
-            // Définition de la requête SQL paramétrée
-            String sqlInsert = "INSERT INTO clients (Nom, Prénom, Adresse, Numéro_Téléphone) " +
-                    "VALUES (?,?,?,?)";
-            // On créé un PreparedStatement à partir de la requête SQL
-            PreparedStatement InsertStatement = connection.prepareStatement(sqlInsert);
-            // On paramètre nos données à nos placeholders
-            InsertStatement.setString(1,nom);
-            InsertStatement.setString(2, prenom);
-            InsertStatement.setString(3,adresse);
-            InsertStatement.setString(4,num_tel);
-            // On exécute la requête SQL et on vérifie que les m
-            int rowCount = InsertStatement.executeUpdate();
-            if (rowCount == 1) {
-                System.out.println("Insertion des données réussies : "
-                        + nom + ", "  + prenom + ", " + adresse + ", " + num_tel);
-            }
-            connection.close();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
     public static void deleteLocationByPrice(int price){
         try {
             Connection connection = DatabaseManager.getConnection();
