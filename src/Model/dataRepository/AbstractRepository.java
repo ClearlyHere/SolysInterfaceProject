@@ -7,7 +7,7 @@ import java.lang.reflect.Field;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
+// EVERYTHING MIRACOULOUSLY WORKS JESUS CHRIST
 abstract public class AbstractRepository {
     String column1;
     abstract String getPrimayKeyColumn();
@@ -72,6 +72,19 @@ abstract public class AbstractRepository {
         }
         valuesIndex.append(")");
         return valuesIndex.toString();
+    }
+
+    private String updateParameterizedString(){
+        StringBuilder builder = new StringBuilder();
+        List<String> columnList = this.getColumns();
+        for (int i = 1; i < columnList.size(); i++){
+            String columnName = columnList.get(i);
+            builder.append(columnName).append(" = ?");
+            if (i < columnList.size() - 1){
+                builder.append(", ");
+            }
+        }
+        return builder.toString();
     }
 
     private static List<ArrayList<Object>> getObjectsFromResultSet(ResultSet resultSet) throws SQLException {
@@ -168,9 +181,36 @@ abstract public class AbstractRepository {
             for (int i = 1; i <= objectTableArray.size() - 1; i++){
                 preparedStatement.setObject(i, objectTableArray.get(i));
             }
-            System.out.println(preparedStatement);
             int rowCount = preparedStatement.executeUpdate();
             if (rowCount < 1){
+                throw new Exception("Data not found in " + this.getNomTable());
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+        return true;
+    }
+
+    public boolean mettreAjour(AbstractObject object) {
+        // STRING EXAMPLE = "UPDATE TABLE SET COLUMN2 = VALUE2, COLUMN3 = VALUE3 WHERE COLUMN1 = VALUE1;
+        // A METHOD THAT SOULD RETURN "COLUMN2 = ?, COLUMN3 = ?"
+
+        String sqlQuery = "UPDATE " + this.getNomTable() + " SET " + this.updateParameterizedString() +
+                " WHERE " + this.getPrimayKeyColumn() + " = ?;";
+        try (Connection connection = DatabaseManager.getConnection()){
+            //noinspection SqlSourceToSinkFlow
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+            List<Object> objectTableArray = object.getTableArray();
+            int i;
+            for (i = 1; i <= objectTableArray.size() - 1; i++){
+                preparedStatement.setObject(i, objectTableArray.get(i));
+            }
+            preparedStatement.setObject(i, object.getPrimaryKey());
+            int rowCount = preparedStatement.executeUpdate();
+            if (rowCount < 1) {
                 throw new Exception("Data not found in " + this.getNomTable());
             }
         } catch (SQLException e) {
