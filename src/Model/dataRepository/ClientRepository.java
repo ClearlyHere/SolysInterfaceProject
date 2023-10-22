@@ -11,12 +11,17 @@ public class ClientRepository extends AbstractRepository {
     private final String column5 = "Numéro_Téléphone";
 
     @Override
-    protected String getNomTable() {
+    String getPrimayKeyColumn() {
+        return this.column1;
+    }
+
+    @Override
+    String getNomTable() {
         return "Clients";
     }
 
     @Override
-    protected Client construire(ArrayList<Object> list) {
+    Client construire(ArrayList<Object> list) {
         return new Client(
                 (int) list.get(0),
                 (String) list.get(1),

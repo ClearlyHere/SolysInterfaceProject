@@ -9,17 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 abstract public class AbstractRepository {
-    protected String column1;
+    String column1;
+    abstract String getPrimayKeyColumn();
 
-    protected abstract String getNomTable();
+    abstract String getNomTable();
 
-    protected abstract AbstractObject construire(ArrayList<Object> list);
+    abstract AbstractObject construire(ArrayList<Object> list);
 
-    protected String getPrimayKeyColumn() {
-        return this.column1;
-    }
-
-    protected List<String> getColumns() {
+    private List<String> getColumns() {
         List<String> columnsArray = new ArrayList<>();
         Field[] attributs = this.getClass().getDeclaredFields();
         try {
@@ -83,6 +80,50 @@ abstract public class AbstractRepository {
             System.out.println(e.getMessage());
             return null;
         }
+    }
+
+    public AbstractObject select(int identifier){
+        List<ArrayList<Object>> dataTable;
+        String sqlQuery = "SELECT " + this.columsToString() + " FROM " + this.getNomTable()
+                + " WHERE " + this.getPrimayKeyColumn() + " = ?;";
+        try (Connection connection = DatabaseManager.getConnection()){
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setInt(1, identifier);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            dataTable = getObjectsFromResultSet(resultSet);
+
+            if (dataTable.isEmpty()){
+                throw new Exception("Data not found in " + this.getNomTable());
+            }
+            connection.close();
+            resultSet.close();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+        return construire(dataTable.get(0));
+    }
+
+    public boolean effacer(int identifier){
+        String sqlDelete = "DELETE FROM " + this.getNomTable() + " WHERE " + this.getPrimayKeyColumn() + " = ?;";
+        try (Connection connection = DatabaseManager.getConnection()) {
+            //noinspection SqlSourceToSinkFlow
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlDelete);
+            preparedStatement.setInt(1, identifier);
+            int rowCount = preparedStatement.executeUpdate();
+            if (rowCount < 1){
+                throw new Exception("Data not found in " + this.getNomTable());
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+        return true;
     }
     public static void transactionSommeArgent(int compteSource, int compteCible, float sommeArgent){
         try (Connection connection = DatabaseManager.getConnection()) {
@@ -152,28 +193,6 @@ abstract public class AbstractRepository {
             connection.commit();
             connection.setAutoCommit(true);
             System.out.println("Transaction réussie!");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-    public static void selectLocation(int id_client){
-        try {
-            Connection connection = DatabaseManager.getConnection();
-
-            // Définir la requête SQL paramétrée
-            String sqlQuery = "SELECT ID_Location, ID_Véhicule, ID_Employé, Date_Début, " +
-                    "Date_Fin, Coût_Total FROM locations WHERE ID_client = ?";
-            // On créé un PreparedStatement
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
-            // Paramétrage de l'identifiant du client
-            preparedStatement.setInt(1, id_client);
-            // Execution de la requête, on enregistre les données dans un ResultSet
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            // On appelle la méthode getResultSet
-            getObjectsFromResultSet(resultSet);
-
-            connection.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

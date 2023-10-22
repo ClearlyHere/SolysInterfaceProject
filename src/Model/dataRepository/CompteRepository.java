@@ -11,12 +11,17 @@ public class CompteRepository extends AbstractRepository {
     private final String column3 = "Solde";
 
     @Override
-    protected String getNomTable() {
+    String getPrimayKeyColumn() {
+        return this.column1;
+    }
+
+    @Override
+    String getNomTable() {
         return "comptes";
     }
 
     @Override
-    protected Compte construire(ArrayList<Object> list) {
+    Compte construire(ArrayList<Object> list) {
         int key = Integer.parseInt((String) list.get(0));
         BigDecimal decimal = (BigDecimal) list.get(2);
         float solde = decimal.floatValue();

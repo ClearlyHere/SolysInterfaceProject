@@ -16,12 +16,17 @@ public class LocationRepository extends AbstractRepository {
     private final String column7 = "Coût_Total";
 
     @Override
-    protected String getNomTable() {
+    String getPrimayKeyColumn() {
+        return this.column1;
+    }
+
+    @Override
+    String getNomTable() {
         return "locations";
     }
 
     @Override
-    protected Location construire(ArrayList<Object> list) {
+    Location construire(ArrayList<Object> list) {
         BigDecimal decimal = (BigDecimal) list.get(6);
         float coutTotal = decimal.floatValue();
 

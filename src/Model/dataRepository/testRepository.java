@@ -8,6 +8,7 @@ public class testRepository {
         LocationRepository locRepo = new LocationRepository();
         TransactionRepository transRepo = new TransactionRepository();
         VehiculeRepository vehiculeRepo = new VehiculeRepository();
+        System.out.println(vehiculeRepo.effacer(8));
         System.out.println(vehiculeRepo.selectAll());
     }
 }

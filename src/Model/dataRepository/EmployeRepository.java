@@ -6,19 +6,24 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class EmployeRepository extends AbstractRepository {
-    private final String column1 = "ID_Employé ";
+    private final String column1 = "ID_Employé";
     private final String column2 = "Nom";
     private final String column3 = "Prénom";
     private final String column4 = "Poste";
     private final String column5 = "Salaire";
 
     @Override
-    protected String getNomTable() {
+    String getPrimayKeyColumn() {
+        return this.column1;
+    }
+
+    @Override
+    String getNomTable() {
         return "employés";
     }
 
     @Override
-    protected Employe construire(ArrayList<Object> list) {
+    Employe construire(ArrayList<Object> list) {
         BigDecimal decimal = (BigDecimal) list.get(4);
         float salaire = decimal.floatValue();
         return new Employe(

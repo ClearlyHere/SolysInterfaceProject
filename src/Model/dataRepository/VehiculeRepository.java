@@ -14,12 +14,17 @@ public class VehiculeRepository extends AbstractRepository {
     private final String column6 = "Prix_Loc_Journée";
 
     @Override
-    protected String getNomTable() {
+    String getPrimayKeyColumn() {
+        return this.column1;
+    }
+
+    @Override
+    String getNomTable() {
         return "véhicules";
     }
 
     @Override
-    protected Vehicule construire(ArrayList<Object> list) {
+    Vehicule construire(ArrayList<Object> list) {
         BigDecimal decimal = (BigDecimal) list.get(5);
         float prixLoc = decimal.floatValue();
         return new Vehicule(

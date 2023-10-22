@@ -14,12 +14,17 @@ public class TransactionRepository extends AbstractRepository {
     private final String column5 = "Date_Transaction";
 
     @Override
-    protected String getNomTable() {
+    String getPrimayKeyColumn() {
+        return this.column1;
+    }
+
+    @Override
+    String getNomTable() {
         return "transactions";
     }
 
     @Override
-    protected Transaction construire(ArrayList<Object> list) {
+    Transaction construire(ArrayList<Object> list) {
         int compteSource = Integer.parseInt((String) list.get(1));
         int compteCible = Integer.parseInt((String) list.get(2));
         BigDecimal decimal = (BigDecimal) list.get(3);
