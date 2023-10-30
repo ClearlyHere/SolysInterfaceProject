@@ -31,5 +31,13 @@ public class AbstractController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            AnchorPane clientsAnchor = SceneManager.loadAnchor("clients.fxml");
+            clientsTab.setContent(clientsAnchor);
+            AnchorPane comptesAnchor = SceneManager.loadAnchor("comptes.fxml");
+            comptesTab.setContent(comptesAnchor);
+        } catch (IOException e) {
+            System.out.println("File not found");
+        }
     }
 }
