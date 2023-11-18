@@ -10,3 +10,7 @@ Fist Java app integrating a GUI to manage a database comfortably, using previous
 - Implement GUI features for switching tabs
 - Execute functions through buttons
 - Display data 
+
+Main page preview :
+
+![Alt text](/src/main/resources/screenshots/solysMainPage.png "Optional Title")
