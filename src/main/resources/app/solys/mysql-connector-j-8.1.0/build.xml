@@ -35,7 +35,7 @@ Compiling MySQL Connector/J
 MySQL Connector/J 8.1 supports JDBC4.2 and implements the X DevAPI. This product requires Java 8 for compiling the source code.
 The variable 'com.mysql.cj.build.jdk' is used to specify the compiler when building the driver and the variable 'com.mysql.cj.extra.libs' must point to the
 location of third-party libraries that aren't distributed but are required for compiling the source code. Further details can be found in
-http://dev.mysql.com/doc/connector-j/en/connector-j-installing-source.html.
+https://dev.mysql.com/doc/connector-j/en/connector-j-installing-source.html.
 
 Targets: "clean", "compile", "build" (default), "package", "package-no-sources", "install"
 
@@ -89,7 +89,7 @@ Sample 'build.properties' that can be used to compile, build and test
 # Basic settings for 'compile', 'test' and targets that depend on these.
 
 # External libraries needed for both compiling and testing:
-# - Further details in http://dev.mysql.com/doc/connector-j/en/connector-j-installing-source.html
+# - Further details in https://dev.mysql.com/doc/connector-j/en/connector-j-installing-source.html
 # - Mandatory.
 com.mysql.cj.extra.libs=&lt;full_path_to_connector-j-jardeps&gt;
 

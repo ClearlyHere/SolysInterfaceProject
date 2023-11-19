@@ -38,7 +38,7 @@
 
   <name>MySQL Connector/J</name>
   <description>JDBC Type 4 driver for MySQL.</description>
-  <url>http://dev.mysql.com/doc/connector-j/en/</url>
+  <url>https://dev.mysql.com/doc/connector-j/en/</url>
 
   <licenses>
     <license>
