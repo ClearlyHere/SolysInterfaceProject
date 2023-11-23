@@ -3,6 +3,8 @@ package app.solys.Controller;
 import app.solys.Lib.SceneManager;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.AnchorPane;
 
@@ -29,15 +31,14 @@ public class AbstractController implements Initializable {
     @FXML
     protected Tab vehiculesTab;
 
+    @FXML
+    protected ScrollPane scrollPane;
+
+    @FXML
+    protected SplitPane splitPane;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try {
-            AnchorPane clientsAnchor = SceneManager.loadAnchor("clients.fxml");
-            clientsTab.setContent(clientsAnchor);
-            AnchorPane comptesAnchor = SceneManager.loadAnchor("comptes.fxml");
-            comptesTab.setContent(comptesAnchor);
-        } catch (IOException e) {
-            System.out.println("File not found");
-        }
+        splitPane.setDividerPositions(0.2f, 0.8f);
     }
 }

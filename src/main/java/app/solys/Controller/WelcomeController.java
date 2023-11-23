@@ -22,6 +22,6 @@ public class WelcomeController {
 
     @FXML
     protected void startAction(ActionEvent event) throws IOException {
-        SceneManager.switchToMain(event, "Clients", "clients.fxml");
+        SceneManager.switchToMain(event, "Clients", "main.fxml");
     }
 }

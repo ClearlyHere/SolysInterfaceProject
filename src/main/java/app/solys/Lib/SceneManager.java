@@ -31,19 +31,4 @@ public class SceneManager {
         stage.setTitle(title);
         stage.setScene(newScene);
     }
-
-    public static void switchScenes(Event event, String title, String fxmlFileName) throws IOException {
-        Tab sourceTab = (Tab) event.getSource();
-        Stage stage = (Stage) sourceTab.getTabPane().getScene().getWindow();
-        Scene newScene = SceneManager.loadScene(fxmlFileName);
-        stage.setTitle(title);
-        stage.setScene(newScene);
-    }
-
-    public static AnchorPane loadAnchor(String fxmlFile) throws IOException {
-        System.out.println(App.class.getResource(fxmlFile));
-        FXMLLoader anchorFXML = new FXMLLoader(App.class.getResource(fxmlFile));
-        AnchorPane anchorPane = anchorFXML.load();
-        return anchorPane;
-    }
 }

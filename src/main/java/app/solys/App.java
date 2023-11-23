@@ -14,7 +14,7 @@ public class App extends Application {
         Scene welcomeScene = SceneManager.loadScene("welcome.fxml");
 
         stage.setTitle("Welcome");
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.setScene(welcomeScene);
         stage.show();
     }
